@@ -1,0 +1,70 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getNotices } from '../../lib/kintone';
+import type { Notice } from '../../types/notice';
+
+export async function getStaticPaths() {
+  const notices = await getNotices();
+  return notices.map((notice) => ({
+    params: { id: notice.id },
+    props: { notice },
+  }));
+}
+
+interface Props {
+  notice: Notice;
+}
+
+const { notice } = Astro.props;
+---
+
+<Layout title={notice.title}>
+  <article>
+    <header class="article-header">
+      <div class="meta">
+        <span class="date">{notice.publishedAt}</span>
+        <span class="category">{notice.category}</span>
+      </div>
+      <h1>{notice.title}</h1>
+    </header>
+    <div class="content" set:html={notice.content} />
+    
+    <div class="back-link">
+      <a href="/">← 一覧に戻る</a>
+    </div>
+  </article>
+
+  <style>
+    .article-header {
+      margin-bottom: 2rem;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 1rem;
+    }
+    .meta {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 0.5rem;
+    }
+    .category {
+      background: #eee;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      margin-left: 0.5rem;
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+    .content {
+      line-height: 1.6;
+    }
+    /* KintoneのリッチエディタのHTMLに対するスタイル調整が必要ならここに追記 */
+    .content img {
+      max-width: 100%;
+      height: auto;
+    }
+    .back-link {
+      margin-top: 3rem;
+    }
+  </style>
+</Layout>

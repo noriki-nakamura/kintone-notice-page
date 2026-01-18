@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getNotices } from '../lib/kintone';
+
+const notices = await getNotices();
+---
+
+<Layout title="お知らせ一覧">
+	<h2>お知らせ一覧</h2>
+  {notices.length === 0 ? (
+    <p>お知らせはありません。</p>
+  ) : (
+    <ul class="notice-list">
+      {notices.map((notice) => (
+        <li>
+          <a href={`/notice/${notice.id}`}>
+            <span class="date">{notice.publishedAt}</span>
+            <span class="category">[{notice.category}]</span>
+            <span class="title">{notice.title}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+
+  <style>
+    .notice-list {
+      list-style: none;
+      padding: 0;
+    }
+    .notice-list li {
+      border-bottom: 1px solid #eee;
+      padding: 1rem 0;
+    }
+    .notice-list li:last-child {
+      border-bottom: none;
+    }
+    .date {
+      color: #666;
+      font-size: 0.9rem;
+      margin-right: 0.5rem;
+    }
+    .category {
+      color: #007bff;
+      font-weight: bold;
+      margin-right: 0.5rem;
+    }
+    .title {
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+    a:hover .title {
+      color: #0056b3;
+    }
+  </style>
+</Layout>
