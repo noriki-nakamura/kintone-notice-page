@@ -7,26 +7,48 @@ const notices = await getNotices();
 ---
 
 <Layout title="お知らせ一覧">
-	<h2>お知らせ一覧</h2>
-  {notices.length === 0 ? (
-    <p>お知らせはありません。</p>
-  ) : (
-    <ul class="notice-list">
-      {notices.map((notice) => (
-        <li>
-          <a href={`/notice/${notice.id}`}>
-            <span class="date">{notice.publishedAt}</span>
-            <span class="category">[{notice.category}]</span>
-            <span class="title">{notice.title}</span>
-          </a>
-        </li>
-      ))}
-    </ul>
-  )}
+  <div class="content-wrapper">
+    <div class="calendar-section">
+      <GoogleCalendar />
+    </div>
 
-  <GoogleCalendar />
+    <div class="notices-section">
+      <h2>お知らせ一覧</h2>
+      {notices.length === 0 ? (
+        <p>お知らせはありません。</p>
+      ) : (
+        <ul class="notice-list">
+          {notices.map((notice) => (
+            <li>
+              <a href={`/notice/${notice.id}`}>
+                <span class="date">{notice.publishedAt}</span>
+                <span class="category">[{notice.category}]</span>
+                <span class="title">{notice.title}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </div>
 
   <style>
+    .content-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* 1:1 split */
+      gap: 2rem;
+      align-items: start;
+    }
+
+    /* Mobile: Stack vertically */
+    @media (max-width: 768px) {
+      .content-wrapper {
+        grid-template-columns: 1fr;
+      }
+      /* Optional: Change order on mobile if needed */
+      /* .calendar-section { order: 2; } */
+    }
+
     .notice-list {
       list-style: none;
       padding: 0;
@@ -42,6 +64,7 @@ const notices = await getNotices();
       color: #666;
       font-size: 0.9rem;
       margin-right: 0.5rem;
+      display: inline-block; /* Ensure date doesn't break weirdly */
     }
     .category {
       color: #007bff;
@@ -51,6 +74,13 @@ const notices = await getNotices();
     .title {
       font-size: 1.1rem;
       font-weight: bold;
+      display: block; /* Title on new line for better readability in columns */
+      margin-top: 0.2rem;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+      display: block; /* Make whole list item clickable area nicer */
     }
     a:hover .title {
       color: #0056b3;
