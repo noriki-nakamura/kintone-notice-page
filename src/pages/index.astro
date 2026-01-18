@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getNotices } from '../lib/kintone';
+import GoogleCalendar from '../components/GoogleCalendar.astro';
 
 const notices = await getNotices();
 ---
@@ -22,6 +23,8 @@ const notices = await getNotices();
       ))}
     </ul>
   )}
+
+  <GoogleCalendar />
 
   <style>
     .notice-list {

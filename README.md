@@ -34,6 +34,7 @@ Amplifyコンソールの「環境変数」セクションで以下を設定し�
 | `KINTONE_BASE_URL` | `https://your-domain.cybozu.com` | KintoneのベースURL |
 | `KINTONE_APP_ID` | `123` | お知らせアプリのID |
 | `KINTONE_API_TOKEN` | `xxxxxxxxxxxx` | 発行したAPIトークン |
+| `GOOGLE_CALENDAR_EMBED_URL` | `https://calendar.google.com/calendar/embed?...` | (任意) Googleカレンダー埋め込みURL |
 
 ### 4. Build Webhook の設定 (自動再ビルド)
 Kintoneで記事が更新されたら自動的にサイトを再構築するための設定です。
@@ -66,6 +67,7 @@ npm install
 # KINTONE_BASE_URL=...
 # KINTONE_API_TOKEN=...
 # KINTONE_APP_ID=...
+# GOOGLE_CALENDAR_EMBED_URL=...
 
 # 開発サーバー起動
 npm run dev
