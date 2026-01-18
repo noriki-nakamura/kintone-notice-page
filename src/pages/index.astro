@@ -48,10 +48,11 @@ const notices = await getNotices();
     }
 
     .calendar-section, .notices-section {
-      border: 1px solid #ddd;
+      background: white;
       border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       padding: 1.5rem;
-      background-color: #fff; /* Ensure white background if main changes */
+      /* border: 1px solid #ddd; - Replaced by box-shadow for cleaner card look */
     }
 
     .notice-list {
