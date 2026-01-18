@@ -36,7 +36,7 @@ const notices = await getNotices();
     .content-wrapper {
       display: grid;
       grid-template-columns: 1fr 1fr; /* 1:1 split */
-      gap: 2rem;
+      gap: 4rem;
       align-items: start;
     }
 
@@ -45,8 +45,13 @@ const notices = await getNotices();
       .content-wrapper {
         grid-template-columns: 1fr;
       }
-      /* Optional: Change order on mobile if needed */
-      /* .calendar-section { order: 2; } */
+    }
+
+    .calendar-section, .notices-section {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1.5rem;
+      background-color: #fff; /* Ensure white background if main changes */
     }
 
     .notice-list {
